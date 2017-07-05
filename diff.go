@@ -1,4 +1,4 @@
-package main
+package diffimage
 
 import (
 	"bytes"
@@ -110,7 +110,14 @@ func blend(dst, src color.Color) color.Color {
 	}
 }
 
-func diffImage(img1, img2 image.Image) image.Image {
+func max(a, b int) int {
+	if a > b {
+		return a
+	}
+	return b
+}
+
+func DiffImage(img1, img2 image.Image) image.Image {
 	sz1 := img1.Bounds().Size()
 	sz2 := img2.Bounds().Size()
 	w := max(sz1.X, sz2.X)

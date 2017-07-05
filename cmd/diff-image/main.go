@@ -7,6 +7,8 @@ import (
 	"image/png"
 	"log"
 	"os"
+
+	diffimage "github.com/murooka/go-diff-image"
 )
 
 func mustOpen(filename string) *os.File {
@@ -40,13 +42,6 @@ func mustSaveImage(img image.Image, output string) {
 	png.Encode(f, img)
 }
 
-func max(a, b int) int {
-	if a > b {
-		return a
-	}
-	return b
-}
-
 func rate16(c uint32, r float64) uint16 {
 	fc := float64(c)
 	return uint16(65535 - (65535-fc)*r)
@@ -68,7 +63,7 @@ func main() {
 	img1 := mustLoadImage(args[0])
 	img2 := mustLoadImage(args[1])
 
-	dst := diffImage(img1, img2)
+	dst := diffimage.DiffImage(img1, img2)
 
 	mustSaveImage(dst, output)
 }
